@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.google.gms.google.services)
+    id("org.jetbrains.kotlin.kapt")
 }
 
 android {
@@ -56,11 +57,15 @@ android {
 }
 
 dependencies {
+
+    implementation("androidx.room:room-runtime:2.5.2")  // Use the latest version
+    kapt("androidx.room:room-compiler:2.5.2")  // For Kotlin projects
+
     // Import the Firebase BoM
     implementation(platform("com.google.firebase:firebase-bom:33.1.1"))
 
 
-    
+
     // When using the BoM, don't specify versions in Firebase dependencies
     implementation("com.google.firebase:firebase-analytics")
 
