@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "1074391011529",
-    "project_id": "proiect-android-c61b7",
-    "storage_bucket": "proiect-android-c61b7.appspot.com"
+    "project_number": "902533200431",
+    "project_id": "fir-authentication-d925b",
+    "storage_bucket": "fir-authentication-d925b.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1074391011529:android:c2baf06f1e82afb1537d18",
+        "mobilesdk_app_id": "1:902533200431:android:4d4a87bf7e0e3b4098a4da",
         "android_client_info": {
           "package_name": "com.example.proiect_android"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAlrtgtlnNFnJ7F-1z3NOa4lVD3SGXf6Eg"
+          "current_key": "AIzaSyDnK4G7ElPSOmPs-DAmaQkKG9DaY-0x-ts"
         }
       ],
       "services": {
