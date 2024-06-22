@@ -3,10 +3,10 @@ package com.example.proiect_android.database
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.Room
-import com.example.proiect_android.entites.Recipies
+import com.example.proiect_android.entites.*
 import com.example.proiect_android.dao.RecipeDao
 import android.content.Context
-@Database(entities = [Recipies::class], version = 1,exportSchema = false)
+@Database(entities = [Recipe::class], version = 1,exportSchema = false)
 abstract class RecipeDatabase :RoomDatabase(){
     companion object{
        var recipesDatabase:RecipeDatabase?=null
