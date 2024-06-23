@@ -49,11 +49,10 @@
                 android:id="@+id/item_show_home"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:itemCount="1"
-                android:layout_margin="10dp"
-                android:orientation="horizontal"
-                tools:listitem="@layout/item_show_home" />
-
+                android:layout_margin="4dp"
+            android:orientation="horizontal"
+            tools:itemCount="1"
+            tools:listitem="@layout/item_show_home" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -62,15 +61,14 @@
                 android:textColor="@color/black"
                 android:fontFamily="@font/alfa_slab_one"
                 android:paddingStart="10dp" />
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/subitem_show_home"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:itemCount="1"
-                android:layout_margin="10dp"
-                android:orientation="horizontal"
-                tools:listitem="@layout/subitem_show_home" />
+                android:layout_margin="4dp"
+            android:orientation="horizontal"
+            tools:itemCount="1"
+            tools:listitem="@layout/subitem_show_home" />
 
         </LinearLayout>
     </ScrollView>
