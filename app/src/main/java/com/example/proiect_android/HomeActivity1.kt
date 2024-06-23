@@ -39,7 +39,6 @@ class HomeActivity1 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityHome1Binding.inflate(layoutInflater)
         setContentView(binding.root)
-
         recipeDatabase = Room.databaseBuilder(applicationContext, RecipeDatabase::class.java, "recipe.db").build()
 
         mainCategoryAdapter = MainCategoryAdapter { recipe ->
@@ -54,7 +53,6 @@ class HomeActivity1 : AppCompatActivity() {
         }
         binding.itemShowHome.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         binding.itemShowHome.adapter = mainCategoryAdapter
-
         binding.subitemShowHome.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         binding.subitemShowHome.adapter = subCategoryAdapter
 

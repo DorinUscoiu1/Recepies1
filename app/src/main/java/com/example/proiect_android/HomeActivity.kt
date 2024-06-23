@@ -27,7 +27,6 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Initialize binding
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -56,10 +55,8 @@ class HomeActivity : AppCompatActivity() {
             finish()
         }
 
-        // Initialize Firebase Auth
         firebaseAuth = FirebaseAuth.getInstance()
 
-        // Fetch current time from the API
         val url = "https://worldtimeapi.org/api/timezone/Europe/Bucharest"
         FetchTimeTask().execute(url)
     }
