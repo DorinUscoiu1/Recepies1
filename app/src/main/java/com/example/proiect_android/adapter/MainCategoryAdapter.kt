@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.proiect_android.databinding.ItemShowHomeBinding
 import com.example.proiect_android.entites.Recipe
 
-class MainCategoryAdapter : RecyclerView.Adapter<MainCategoryAdapter.RecipeViewHolder>() {
+class MainCategoryAdapter(private val onCategoryClick: (String) -> Unit) : RecyclerView.Adapter<MainCategoryAdapter.RecipeViewHolder>() {
     private var arrMainCategory = ArrayList<Recipe>()
 
     class RecipeViewHolder(private val binding: ItemShowHomeBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -33,6 +33,8 @@ class MainCategoryAdapter : RecyclerView.Adapter<MainCategoryAdapter.RecipeViewH
     override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
         val recipe = arrMainCategory[position]
         holder.getBinding().tvDishName.text = recipe.DishName
-        // Continue binding other views using holder.getBinding()
+        holder.getBinding().root.setOnClickListener {
+            onCategoryClick(recipe.DishName)
+        }
     }
 }

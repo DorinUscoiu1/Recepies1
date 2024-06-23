@@ -12,7 +12,6 @@ class SubCategoryAdapter : RecyclerView.Adapter<SubCategoryAdapter.RecipeViewHol
     class RecipeViewHolder(private val binding: SubitemShowHomeBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(recipe: Recipe) {
             binding.tvDishName.text = recipe.DishName
-            // You can bind other views here using binding object
         }
     }
 
