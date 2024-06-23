@@ -69,5 +69,5 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Not registered yet? Sign up!"
-        android:textColor="@color/black"/>
+        android:textColor="@color/white"/>
 </LinearLayout>

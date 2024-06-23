@@ -23,16 +23,23 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
     private lateinit var firebaseAuth: FirebaseAuth
 
+    private lateinit var btn_GetStarted: Button
+    private lateinit var buttonShowRecipes: Button
+    private lateinit var buttonLogout: Button
+
     @SuppressLint("SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        supportActionBar?.hide()
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         textViewTime = findViewById(R.id.textViewTime)
+        btn_GetStarted = findViewById(R.id.btn_GetStarted)
+        buttonShowRecipes = findViewById(R.id.buttonShowRecipes)
+        buttonLogout = findViewById(R.id.buttonLogout)
 
-        val btn_GetStarted: Button = findViewById(R.id.btn_GetStarted)
         btn_GetStarted.text = "Search for Recipes"
         btn_GetStarted.setOnClickListener {
             val intent = Intent(this@HomeActivity, HomeActivity1::class.java)
@@ -40,14 +47,17 @@ class HomeActivity : AppCompatActivity() {
             finish()
         }
 
-        binding.buttonShowRecipes.setOnClickListener {
+        buttonShowRecipes.setOnClickListener {
+            btn_GetStarted.visibility = Button.GONE
+            buttonShowRecipes.visibility = Button.GONE
+            buttonLogout.visibility = Button.GONE
+
             supportFragmentManager.commit {
                 replace(R.id.fragment_container, RecipeListFragment())
                 addToBackStack(null)
             }
         }
 
-        val buttonLogout: Button = findViewById(R.id.buttonLogout)
         buttonLogout.setOnClickListener {
             firebaseAuth.signOut()
             val intent = Intent(this@HomeActivity, SignInActivity::class.java)
@@ -59,6 +69,15 @@ class HomeActivity : AppCompatActivity() {
 
         val url = "https://worldtimeapi.org/api/timezone/Europe/Bucharest"
         FetchTimeTask().execute(url)
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        if (supportFragmentManager.backStackEntryCount == 0) {
+            btn_GetStarted.visibility = Button.VISIBLE
+            buttonShowRecipes.visibility = Button.VISIBLE
+            buttonLogout.visibility = Button.VISIBLE
+        }
     }
 
     inner class FetchTimeTask : AsyncTask<String, Void, String>() {

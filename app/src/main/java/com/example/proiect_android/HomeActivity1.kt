@@ -37,6 +37,7 @@ class HomeActivity1 : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportActionBar?.hide()
         binding = ActivityHome1Binding.inflate(layoutInflater)
         setContentView(binding.root)
         recipeDatabase = Room.databaseBuilder(applicationContext, RecipeDatabase::class.java, "recipe.db").build()
@@ -84,6 +85,12 @@ class HomeActivity1 : AppCompatActivity() {
         val url = "https://www.themealdb.com/api/json/v1/1/search.php?s="
         AsyncTaskHandleJson().execute(url)
         loadRecipesFromDatabase()
+    }
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val intent = Intent(this, HomeActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     inner class AsyncTaskHandleJson : AsyncTask<String, String, String>() {

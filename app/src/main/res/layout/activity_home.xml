@@ -5,11 +5,13 @@
     android:background="@color/black"
     android:gravity="center">
 
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
         android:src="@drawable/home" />
+
 
     <FrameLayout
         android:id="@+id/bottomFrame"
@@ -40,6 +42,7 @@
             android:outlineAmbientShadowColor="#FFFF00" />
     </FrameLayout>
 
+
     <TextView
         android:id="@+id/textViewTime"
         android:layout_width="wrap_content"
@@ -55,10 +58,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/textViewTime"
         android:layout_marginTop="16dp"
-        android:text="Show Recipes" />
-
+        android:text="Show Recipes"
+        android:layout_below="@id/textViewTime"/>
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
     <Button
         android:id="@+id/buttonLogout"
         android:layout_width="wrap_content"
@@ -68,9 +74,5 @@
         android:layout_marginTop="16dp"
         android:text="Logout" />
 
-    <FrameLayout
-        android:id="@+id/fragment_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/buttonLogout" />
+
 </RelativeLayout>
