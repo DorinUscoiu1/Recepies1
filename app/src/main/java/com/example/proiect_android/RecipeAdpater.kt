@@ -9,8 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.proiect_android.entites.Recipe
 
 class RecipeAdapter(
-    private val recipes: List<Recipe>,
-    private val onClick: (Recipe) -> Unit
+    private var recipes: List<Recipe>,
+    private val onClick: (Recipe) -> Unit,
+    private val onDelete: (Recipe) -> Unit
 ) : RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
 
     class RecipeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -28,13 +29,21 @@ class RecipeAdapter(
 
     override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
         val currentRecipe = recipes[position]
-//        holder.title.text = currentRecipe.title
-//        holder.ingredients.text = currentRecipe.ingredients
-//        holder.instructions.text = currentRecipe.instructions
+        holder.title.text = currentRecipe.DishName
+        holder.ingredients.text = currentRecipe.Ingredients
+        holder.instructions.text = currentRecipe.Instructions
         holder.itemView.setOnClickListener {
             onClick(currentRecipe)
+        }
+        holder.deleteItem.setOnClickListener {
+            onDelete(currentRecipe)
         }
     }
 
     override fun getItemCount() = recipes.size
+
+    fun setData(newRecipes: List<Recipe>) {
+        recipes = newRecipes
+        notifyDataSetChanged()
+    }
 }

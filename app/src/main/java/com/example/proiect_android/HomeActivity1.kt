@@ -5,12 +5,18 @@ import android.os.AsyncTask
 import android.os.Bundle
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.room.Room
 import com.example.proiect_android.adapter.MainCategoryAdapter
 import com.example.proiect_android.adapter.SubCategoryAdapter
+import com.example.proiect_android.database.RecipeDatabase
 import com.example.proiect_android.databinding.ActivityHome1Binding
 import com.example.proiect_android.entites.Category
 import com.example.proiect_android.entites.Recipe
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.json.JSONObject
 import java.net.HttpURLConnection
 import java.net.URL
@@ -27,10 +33,15 @@ class HomeActivity1 : AppCompatActivity() {
     private var currentQuery: String = ""
     private var currentCategory: String = "All Categories"
 
+    private lateinit var recipeDatabase: RecipeDatabase
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHome1Binding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        recipeDatabase = Room.databaseBuilder(applicationContext, RecipeDatabase::class.java, "recipe.db").build()
+
         mainCategoryAdapter = MainCategoryAdapter { recipe ->
             val intent = Intent(this, RecipeDetailActivity::class.java)
             intent.putExtra("RECIPE_DETAIL", recipe)
@@ -65,8 +76,16 @@ class HomeActivity1 : AppCompatActivity() {
             }
         })
 
+        binding.buttonShowRecipes.setOnClickListener {
+            supportFragmentManager.commit {
+                replace(R.id.fragment_container, RecipeListFragment())
+                addToBackStack(null)
+            }
+        }
+
         val url = "https://www.themealdb.com/api/json/v1/1/search.php?s="
         AsyncTaskHandleJson().execute(url)
+        loadRecipesFromDatabase()
     }
 
     inner class AsyncTaskHandleJson : AsyncTask<String, String, String>() {
@@ -127,6 +146,8 @@ class HomeActivity1 : AppCompatActivity() {
 
         mainCategoryAdapter.setData(arrMainCategory)
         subCategoryAdapter.setData(arrSubCategory)
+
+        saveRecipesToDatabase(recipeList)
     }
 
     private fun filterRecipes() {
@@ -135,5 +156,22 @@ class HomeActivity1 : AppCompatActivity() {
                     (currentCategory == "All Categories" || it.Category.equals(currentCategory, ignoreCase = true))
         }
         mainCategoryAdapter.setData(filteredMainCategory)
+    }
+
+    private fun saveRecipesToDatabase(recipes: List<Recipe>) {
+        CoroutineScope(Dispatchers.IO).launch {
+            recipeDatabase.recipeDao().insert(recipes)
+        }
+    }
+
+    private fun loadRecipesFromDatabase() {
+        CoroutineScope(Dispatchers.IO).launch {
+            val recipes = recipeDatabase.recipeDao().getAllRecipes()
+            arrMainCategory.clear()
+            arrMainCategory.addAll(recipes)
+            runOnUiThread {
+                mainCategoryAdapter.setData(arrMainCategory)
+            }
+        }
     }
 }

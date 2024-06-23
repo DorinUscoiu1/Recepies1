@@ -2,106 +2,94 @@ package com.example.proiect_android
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.os.AsyncTask
 import android.os.Bundle
 import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.room.Room
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import com.example.proiect_android.entites.*
-import com.example.proiect_android.database.*
-
-
+import androidx.fragment.app.commit
+import com.example.proiect_android.databinding.ActivityHomeBinding
+import org.json.JSONObject
+import java.net.HttpURLConnection
+import java.net.URL
+import java.text.SimpleDateFormat
+import java.util.Locale
+import java.util.Date
+import com.google.firebase.auth.FirebaseAuth
 
 class HomeActivity : AppCompatActivity() {
+
+    private lateinit var textViewTime: TextView
+    private lateinit var binding: ActivityHomeBinding
+    private lateinit var firebaseAuth: FirebaseAuth
+
     @SuppressLint("SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
 
-       val btn_GetStarted: Button = findViewById(R.id.btn_GetStarted)
-                btn_GetStarted.setOnClickListener {
-                    var intent = Intent(this@HomeActivity, HomeActivity1::class.java)
-                    startActivity(intent)
-                    finish()
+        // Initialize binding
+        binding = ActivityHomeBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-                }
+        textViewTime = findViewById(R.id.textViewTime)
+
+        val btn_GetStarted: Button = findViewById(R.id.btn_GetStarted)
+        btn_GetStarted.text = "Search for Recipes"
+        btn_GetStarted.setOnClickListener {
+            val intent = Intent(this@HomeActivity, HomeActivity1::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+        binding.buttonShowRecipes.setOnClickListener {
+            supportFragmentManager.commit {
+                replace(R.id.fragment_container, RecipeListFragment())
+                addToBackStack(null)
             }
         }
 
+        val buttonLogout: Button = findViewById(R.id.buttonLogout)
+        buttonLogout.setOnClickListener {
+            firebaseAuth.signOut()
+            val intent = Intent(this@HomeActivity, SignInActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
 
-//class HomeActivity : AppCompatActivity() {
-//    private lateinit var editTextRecipeTitle: EditText
-//    private lateinit var editTextRecipeIngredients: EditText
-//    private lateinit var editTextRecipeInstructions: EditText
-//    private lateinit var buttonAddRecipe: Button
-//    private lateinit var recyclerViewRecipes: RecyclerView
-//    private lateinit var recipeAdapter: RecipeAdapter
-//    private lateinit var recipeList: MutableList<Recipe>
-//
-//    private lateinit var db: RecipeDatabase
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_home)
-//        // Initialize Recipe related views
-//        editTextRecipeTitle = findViewById(R.id.recipeTitle)
-//        editTextRecipeIngredients = findViewById(R.id.recipeIngredients)
-//        editTextRecipeInstructions = findViewById(R.id.recipeInstructions)
-//        buttonAddRecipe = findViewById(R.id.addRecipe)
-//        recyclerViewRecipes = findViewById(R.id.listOfRecipes)
-//
-//        // Initialize Database
-//        db = Room.databaseBuilder(applicationContext, RecipeDatabase::class.java, "recipe-database").build()
-//
-//        // Load Recipes
-//        GlobalScope.launch {
-//            recipeList = db.recipeDao().getAllRecipes().toMutableList()
-//            runOnUiThread {
-//                recyclerViewRecipes.layoutManager = LinearLayoutManager(this@HomeActivity)
-//                recipeAdapter = RecipeAdapter(recipeList) { recipe ->
-//                    GlobalScope.launch {
-//                        db.recipeDao().delete(recipe)
-//                        runOnUiThread {
-//                            recipeList.remove(recipe)
-//                            recipeAdapter.notifyDataSetChanged()
-//                        }
-//                    }
-//                }
-//                recyclerViewRecipes.adapter = recipeAdapter
-//            }
-//        }
-//
-//        // Add Recipe
-//        buttonAddRecipe.setOnClickListener {
-//            val title = editTextRecipeTitle.text.toString().trim()
-//            val ingredients = editTextRecipeIngredients.text.toString().trim()
-//            val instructions = editTextRecipeInstructions.text.toString().trim()
-//
-//            if (title.isEmpty() || ingredients.isEmpty() || instructions.isEmpty()) {
-//                Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
-//                return@setOnClickListener
-//            }
-//
-//            GlobalScope.launch {
-//                var recipe = recipeList.find { it.title.equals(title, ignoreCase = true) }
-//                if (recipe != null) {
-//                    recipe.ingredients = ingredients
-//                    recipe.instructions = instructions
-//                    db.recipeDao().update(recipe)
-//                } else {
-//                    recipe = Recipe(title = title, ingredients = ingredients, instructions = instructions)
-//                    db.recipeDao().insert(recipe)
-//                    recipeList.add(recipe)
-//                }
-//
-//                runOnUiThread {
-//                    recipeAdapter.notifyDataSetChanged()
-//                }
-//            }
-//        }
-//    }
-//}
+        // Initialize Firebase Auth
+        firebaseAuth = FirebaseAuth.getInstance()
+
+        // Fetch current time from the API
+        val url = "https://worldtimeapi.org/api/timezone/Europe/Bucharest"
+        FetchTimeTask().execute(url)
+    }
+
+    inner class FetchTimeTask : AsyncTask<String, Void, String>() {
+        override fun doInBackground(vararg params: String?): String {
+            val urlConnection = URL(params[0]).openConnection() as HttpURLConnection
+            return try {
+                val inputStream = urlConnection.inputStream
+                inputStream.bufferedReader().use { it.readText() }
+            } finally {
+                urlConnection.disconnect()
+            }
+        }
+
+        override fun onPostExecute(result: String?) {
+            super.onPostExecute(result)
+            result?.let {
+                val jsonObject = JSONObject(it)
+                val datetime = jsonObject.getString("datetime")
+                val formattedDateTime = formatDateTime(datetime)
+                textViewTime.text = formattedDateTime
+            }
+        }
+
+        private fun formatDateTime(datetime: String): String {
+            val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSSXXX", Locale.getDefault())
+            val outputFormat = SimpleDateFormat("EEEE, MMM d, yyyy h:mm a", Locale.getDefault())
+            val date: Date = inputFormat.parse(datetime)
+            return outputFormat.format(date)
+        }
+    }
+}
