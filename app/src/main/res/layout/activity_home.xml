@@ -51,7 +51,7 @@
         android:text="Add Recipe"
         android:background="@android:color/holo_blue_light"
         android:textColor="@android:color/white"
-        android:padding="8dp" />
+        android:padding="8dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listOfRecipes"
@@ -80,7 +80,7 @@
             android:textColor="@color/black"
             android:paddingStart="20sp"
             android:paddingEnd="20sp"
-            android:visibility="invisible" />
+            android:visibility="visible" />
 
         <ProgressBar
             android:id="@+id/loader"

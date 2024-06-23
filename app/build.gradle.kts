@@ -41,9 +41,9 @@ android {
         jvmTarget = "1.8"
     }
     buildFeatures {
+        viewBinding = true  // Enable view binding
         compose = true
-        viewBinding=true
-        dataBinding=true
+        dataBinding = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -55,6 +55,9 @@ android {
     }
 
 }
+
+
+
 
 dependencies {
 
@@ -72,7 +75,8 @@ dependencies {
 
     // Add the dependencies for any other desired Firebase products
     // https://firebase.google.com/docs/android/setup#available-libraries
-
+    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("com.google.android.material:material:1.9.0")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
