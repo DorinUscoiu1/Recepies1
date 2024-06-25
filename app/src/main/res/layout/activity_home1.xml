@@ -17,6 +17,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/titleHome1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="All Recipes"
@@ -37,11 +38,11 @@
                 <SearchView
                     android:id="@+id/search_view"
                     android:layout_width="match_parent"
-                    android:theme="@style/ThemeOverlay.Search"
-                    android:queryHint="Search"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/search"
                     android:iconifiedByDefault="false"
-                    android:layout_height="wrap_content" />
+                    android:queryHint="Search"
+                    android:theme="@style/ThemeOverlay.Search" />
 
             </androidx.cardview.widget.CardView>
 
@@ -54,6 +55,7 @@
             tools:itemCount="1"
             tools:listitem="@layout/item_show_home" />
             <TextView
+                android:id="@+id/CategoryNameContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Category name"
@@ -72,15 +74,20 @@
 
         </LinearLayout>
     </ScrollView>
-    <Button
-        android:id="@+id/buttonShowRecipes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Show Recipes" />
 
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent" >
 
+
+    </FrameLayout>
+    <Button
+        android:id="@+id/buttonShowRecipes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Recipes"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="500dp"
+        android:textColor="@color/black"/>
 </RelativeLayout>

@@ -9,7 +9,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@drawable/home" />
+            android:src="@drawable/home"
+            android:alpha="0.6"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewRecipes"

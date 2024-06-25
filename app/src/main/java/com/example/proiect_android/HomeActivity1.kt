@@ -3,10 +3,15 @@ package com.example.proiect_android
 import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
+import android.view.View
+import android.widget.Button
+import android.widget.RelativeLayout
 import android.widget.SearchView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.example.proiect_android.adapter.MainCategoryAdapter
 import com.example.proiect_android.adapter.SubCategoryAdapter
@@ -29,10 +34,14 @@ class HomeActivity1 : AppCompatActivity() {
     private var arrCategories = ArrayList<String>()
     private lateinit var mainCategoryAdapter: MainCategoryAdapter
     private lateinit var subCategoryAdapter: SubCategoryAdapter
-
+    private lateinit var categoryNameContainer: TextView
+    private lateinit var itemRecyclerView: RecyclerView
+    private lateinit var subItemRecyclerView: RecyclerView
+    private lateinit var titleHome1: TextView
+    private lateinit var searchView: SearchView
     private var currentQuery: String = ""
     private var currentCategory: String = "All Categories"
-
+    private lateinit var buttonShowRecipes: Button
     private lateinit var recipeDatabase: RecipeDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +50,12 @@ class HomeActivity1 : AppCompatActivity() {
         binding = ActivityHome1Binding.inflate(layoutInflater)
         setContentView(binding.root)
         recipeDatabase = Room.databaseBuilder(applicationContext, RecipeDatabase::class.java, "recipe.db").build()
-
+        buttonShowRecipes = findViewById(R.id.buttonShowRecipes)
+        categoryNameContainer = findViewById(R.id.CategoryNameContainer)
+        titleHome1 = findViewById(R.id.titleHome1)
+        subItemRecyclerView = findViewById(R.id.subitem_show_home)
+        itemRecyclerView = findViewById(R.id.item_show_home)
+        searchView = findViewById(R.id.search_view)
         mainCategoryAdapter = MainCategoryAdapter { recipe ->
             val intent = Intent(this, RecipeDetailActivity::class.java)
             intent.putExtra("RECIPE_DETAIL", recipe)
@@ -76,6 +90,12 @@ class HomeActivity1 : AppCompatActivity() {
         })
 
         binding.buttonShowRecipes.setOnClickListener {
+            buttonShowRecipes.visibility = Button.GONE
+            categoryNameContainer.visibility = View.GONE
+            titleHome1.visibility = View.GONE
+            searchView.visibility = View.GONE
+            itemRecyclerView.visibility = View.GONE
+            subItemRecyclerView.visibility = View.GONE
             supportFragmentManager.commit {
                 replace(R.id.fragment_container, RecipeListFragment())
                 addToBackStack(null)
