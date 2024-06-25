@@ -2,15 +2,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    android:background="@drawable/button_background"
     android:gravity="center">
-
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/home" />
 
 
     <FrameLayout
@@ -21,25 +14,22 @@
         android:layout_alignParentStart="true"
         android:layout_marginBottom="20dp"
         android:layout_marginStart="20dp"
-        android:gravity="center">
+        android:gravity="center"
+        android:layout_centerVertical="true">
+
 
         <Button
-            android:id="@+id/btn_GetStarted"
+            android:id="@+id/buttonLogout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_home"
-            android:text="Search for Recipes"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="16dp"
+            android:text="Logout"
             android:textColor="@color/black"
-            android:paddingStart="20sp"
-            android:paddingEnd="20sp"
-            android:visibility="visible" />
+            android:background="@drawable/button_home"
+            />
 
-        <ProgressBar
-            android:id="@+id/loader"
-            android:layout_width="20sp"
-            android:layout_height="20sp"
-            android:layout_gravity="center"
-            android:outlineAmbientShadowColor="#FFFF00" />
     </FrameLayout>
 
 
@@ -52,27 +42,72 @@
         android:layout_marginTop="16dp"
         android:textColor="@android:color/white"
         android:textSize="18sp"/>
-
+    <ProgressBar
+        android:id="@+id/loader"
+        android:layout_width="70sp"
+        android:layout_height="70sp"
+        android:layout_gravity="center"
+        android:layout_marginTop="450dp"
+        android:layout_centerHorizontal="true"
+        android:outlineAmbientShadowColor="#FFFF00" />
     <Button
         android:id="@+id/buttonShowRecipes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="200dp"
         android:text="Show Recipes"
-        android:layout_below="@id/textViewTime"/>
+        android:layout_below="@id/textViewTime"
+        android:textColor="@color/black"
+        android:background="@drawable/button_home"
+        />
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true" >
+
+
+    </FrameLayout>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/imageViewHome"
+        android:layout_width="155dp"
+        android:layout_height="155dp"
+        app:cardCornerRadius="250dp"
+        app:cardBackgroundColor="@color/white"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            app:cardCornerRadius="250dp"
+            android:layout_gravity="center">
+
+            <ImageView
+
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/food2"
+                android:scaleType="centerCrop"/>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.cardview.widget.CardView>
     <Button
-        android:id="@+id/buttonLogout"
+        android:id="@+id/btn_GetStarted"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/button_home"
+        android:text="Search for Recipes"
         android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:textColor="@color/black"
+        android:paddingStart="30sp"
+        android:paddingEnd="20sp"
+        android:visibility="visible"
+        android:layout_marginTop="30dp"
         android:layout_below="@id/buttonShowRecipes"
-        android:layout_marginTop="16dp"
-        android:text="Logout" />
-
+        />
 
 </RelativeLayout>

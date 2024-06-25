@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <shape>
+            <solid android:color="#FFC0CB" /> <!-- Light Pink when pressed -->
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <gradient
+                android:startColor="#FFFFFF"
+                android:endColor="#FFC0CB"
+                android:angle="120" />
+            <corners android:radius="13dp" />
+        </shape>
+    </item>
+</selector>

@@ -4,18 +4,21 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.commit
 import com.example.proiect_android.databinding.ActivityHomeBinding
+import com.google.firebase.auth.FirebaseAuth
 import org.json.JSONObject
 import java.net.HttpURLConnection
 import java.net.URL
 import java.text.SimpleDateFormat
-import java.util.Locale
 import java.util.Date
-import com.google.firebase.auth.FirebaseAuth
+import java.util.Locale
 
 class HomeActivity : AppCompatActivity() {
 
@@ -26,6 +29,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var btn_GetStarted: Button
     private lateinit var buttonShowRecipes: Button
     private lateinit var buttonLogout: Button
+    private lateinit var imageViewHome: CardView
 
     @SuppressLint("SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +43,7 @@ class HomeActivity : AppCompatActivity() {
         btn_GetStarted = findViewById(R.id.btn_GetStarted)
         buttonShowRecipes = findViewById(R.id.buttonShowRecipes)
         buttonLogout = findViewById(R.id.buttonLogout)
-
+        imageViewHome = findViewById(R.id.imageViewHome)
         btn_GetStarted.text = "Search for Recipes"
         btn_GetStarted.setOnClickListener {
             val intent = Intent(this@HomeActivity, HomeActivity1::class.java)
@@ -51,12 +55,13 @@ class HomeActivity : AppCompatActivity() {
             btn_GetStarted.visibility = Button.GONE
             buttonShowRecipes.visibility = Button.GONE
             buttonLogout.visibility = Button.GONE
-
+            imageViewHome.visibility = View.GONE
             supportFragmentManager.commit {
                 replace(R.id.fragment_container, RecipeListFragment())
                 addToBackStack(null)
             }
         }
+
 
         buttonLogout.setOnClickListener {
             firebaseAuth.signOut()

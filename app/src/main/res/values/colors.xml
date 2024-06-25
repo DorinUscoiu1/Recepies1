@@ -10,4 +10,7 @@
     <color name="hintTextColor">#FF0000</color>
     <color name="gray">#F5F5F5</color>
     <color name="yellow">#FFFF00</color>
+    <color name="pink">#E75480</color>"
+    <color name="transparent">#00000000</color>
+    <color name="semi_transparent_red">#80FF0000</color>
 </resources>
