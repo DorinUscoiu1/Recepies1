@@ -8,6 +8,7 @@ import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -31,7 +32,7 @@ class HomeActivity : AppCompatActivity() {
 
     private lateinit var btn_GetStarted: Button
     private lateinit var buttonShowRecipes: Button
-    private lateinit var buttonLogout: Button
+    private lateinit var buttonLogout: ImageButton
     private lateinit var imageViewHome: CardView
 
     @SuppressLint("SuspiciousIndentation")
@@ -59,14 +60,13 @@ class HomeActivity : AppCompatActivity() {
         buttonShowRecipes.setOnClickListener {
             btn_GetStarted.visibility = Button.GONE
             buttonShowRecipes.visibility = Button.GONE
-            buttonLogout.visibility = Button.GONE
+            buttonLogout.visibility = ImageButton.GONE
             imageViewHome.visibility = View.GONE
             supportFragmentManager.commit {
                 replace(R.id.fragment_container, RecipeListFragment())
                 addToBackStack(null)
             }
         }
-
 
         buttonLogout.setOnClickListener {
             firebaseAuth.signOut()
@@ -86,7 +86,7 @@ class HomeActivity : AppCompatActivity() {
         if (supportFragmentManager.backStackEntryCount == 0) {
             btn_GetStarted.visibility = Button.VISIBLE
             buttonShowRecipes.visibility = Button.VISIBLE
-            buttonLogout.visibility = Button.VISIBLE
+            buttonLogout.visibility = ImageButton.VISIBLE // Schimbați la ImageButton
         }
     }
 

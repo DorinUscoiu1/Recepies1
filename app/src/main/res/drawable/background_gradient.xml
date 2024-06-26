@@ -1,4 +1,3 @@
-<!-- res/drawable/background_gradient.xml -->
 <gradient xmlns:android="http://schemas.android.com/apk/res/android"
     android:startColor="#4A00E0"
     android:endColor="#8E2DE2"

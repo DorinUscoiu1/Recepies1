@@ -45,7 +45,8 @@
         android:layout_marginTop="16dp"
         app:boxStrokeColor="@color/black"
         app:hintTextColor="@color/black"
-        app:passwordToggleEnabled="true">
+        app:endIconMode="password_toggle"
+        app:endIconTint="@color/black">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/passEt"
@@ -87,7 +88,5 @@
         android:textColor="@color/black"
         android:gravity="center"
         android:layout_gravity="center_horizontal"/>
-
-
 
 </LinearLayout>
