@@ -17,7 +17,10 @@ class SignUpActivity : AppCompatActivity() {
         supportActionBar?.hide()
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        binding.textView.setOnClickListener {
+            val intent = Intent(this, SignInActivity::class.java)
+            startActivity(intent)
+        }
         firebaseAuth = FirebaseAuth.getInstance()
 
         binding.button.setOnClickListener {

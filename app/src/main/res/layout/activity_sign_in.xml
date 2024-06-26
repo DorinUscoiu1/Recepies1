@@ -7,8 +7,6 @@
     android:background="@drawable/button_background"
     android:orientation="vertical"
     android:padding="16dp">
-    <!-- Image centered at the top -->
-
 
     <ImageView
         android:id="@+id/imageView"
