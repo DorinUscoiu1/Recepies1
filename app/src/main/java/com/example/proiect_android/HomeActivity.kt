@@ -4,9 +4,12 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
@@ -38,7 +41,9 @@ class HomeActivity : AppCompatActivity() {
         supportActionBar?.hide()
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        val loader = findViewById<ProgressBar>(R.id.loader)
+        loader.visibility = View.VISIBLE
+        Handler(Looper.getMainLooper()).postDelayed({ loader.visibility = View.GONE }, 1200)
         textViewTime = findViewById(R.id.textViewTime)
         btn_GetStarted = findViewById(R.id.btn_GetStarted)
         buttonShowRecipes = findViewById(R.id.buttonShowRecipes)
